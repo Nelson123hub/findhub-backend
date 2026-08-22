@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FUTMINNA Lost & Found</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="images/futminna-logo.jpeg">
+</head>
+<body>
+    <!-- ==================== TOP NAVBAR ==================== -->
+    <nav class="app-navbar">
+        <a href="index.html" class="nav-brand">
+            <!-- <img src="images/futminna-logo.jpeg" alt="FUTMINNA Official Logo"> -->
+            <div class="nav-brand-text">
+                <h1>FUTMINNA FindHub</h1>
+                <span>Technology for Empowerment</span>
+            </div>
+        </a>
+        <div class="app-navbar-actions">
+            <button class="notifications-bell" id="notificationsToggle" aria-label="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="badge" id="notificationBadge">2</span>
+            </button>
+            <div class="user-avatar" id="userAvatar">DS</div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu" style="display: none;">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="app-layout">
+        <!-- ==================== SIDEBAR ==================== -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="images/futminna-logo.jpeg" alt="FUTMINNA Official Logo">
+                <h3 id="userName">Demo Student</h3>
+                <p id="userRole">Student</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="sidebar-nav-item active" data-page="dashboard">
+                    <i class="fas fa-th-large"></i> Dashboard
+                </button>
+                <button class="sidebar-nav-item" data-page="items">
+                    <i class="fas fa-search"></i> Browse Items
+                </button>
+                <button class="sidebar-nav-item" data-page="myReports">
+                    <i class="fas fa-clipboard-list"></i> My Reports
+                </button>
+                <button class="sidebar-nav-item" data-page="claims">
+                    <i class="fas fa-handshake"></i> My Claims
+                </button>
+                <button class="sidebar-nav-item" data-page="admin" id="adminNavItem" style="display: none;">
+                    <i class="fas fa-shield-alt"></i> Admin Panel
+                </button>
+                <button class="sidebar-nav-item" data-page="settings">
+                    <i class="fas fa-cog"></i> Settings
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <main class="main-content">
+
+            <!-- ---------- DASHBOARD PAGE ---------- -->
+            <div id="dashboardPage" class="page-content">
+                <div class="page-header">
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <button class="btn btn-primary" id="reportItemBtn">
+                        <i class="fas fa-plus"></i> Report Item
+                    </button>
+                </div>
+
+                <div class="stats-row" id="dashboardStats"></div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg);">
+                    <h2 style="color: var(--futminna-purple); font-size: var(--font-size-xl);">Recent Items</h2>
+                    <button class="sidebar-nav-item" data-page="items" style="background: none; border: none; color: var(--futminna-purple); font-weight: 600; cursor: pointer; font-size: var(--font-size-sm);">
+                        View All <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="items-grid" id="recentItems"></div>
+
+                <div style="margin-top: var(--space-xl); display: flex; gap: var(--space-md); flex-wrap: wrap;" id="quickActions"></div>
+            </div>
+
+            <!-- ---------- BROWSE ITEMS PAGE ---------- -->
+            <div id="itemsPage" class="page-content hidden">
+                <div class="page-header">
+                    <h1>Browse Items</h1>
+                    <button class="btn btn-primary" id="reportItemBtn2">
+                        <i class="fas fa-plus"></i> Report Item
+                    </button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchItems" placeholder="Search by item name, location, description...">
+                    </div>
+                    <select class="filter-select" id="filterType">
+                        <option value="">All Types</option>
+                        <option value="lost">Lost</option>
+                        <option value="found">Found</option>
+                    </select>
+                    <select class="filter-select" id="filterCategory">
+                        <option value="">All Categories</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="ID Cards">ID Cards</option>
+                        <option value="Bags">Bags</option>
+                        <option value="Wallets">Wallets</option>
+                        <option value="Study Materials">Study Materials</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Phones">Phones</option>
+                        <option value="Laptops">Laptops</option>
+                        <option value="Documents">Documents</option>
+                        <option value="Others">Others</option>
+                    </select>
+                    <select class="filter-select" id="filterStatus">
+                        <option value="">All Status</option>
+                        <option value="reported">Reported</option>
+                        <option value="under_review">Under Review</option>
+                        <option value="matched">Matched</option>
+                        <option value="claim_initiated">Claim Initiated</option>
+                        <option value="verified">Verified</option>
+                        <option value="returned">Returned</option>
+                    </select>
+                </div>
+
+                <div class="items-grid" id="itemsGrid"></div>
+            </div>
+
+            <!-- ---------- MY REPORTS PAGE ---------- -->
+            <div id="myReportsPage" class="page-content hidden">
+                <div class="page-header">
+                    <h1>My Reports</h1>
+                    <button class="btn btn-primary" onclick="toggleModal('reportItemModal', true)">
+                        <i class="fas fa-plus"></i> New Report
+                    </button>
+                </div>
+                <div class="items-grid" id="myReportsGrid"></div>
+            </div>
+
+            <!-- ---------- MY CLAIMS PAGE ---------- -->
+            <div id="claimsPage" class="page-content hidden">
+                <div class="page-header">
+                    <h1>My Claims</h1>
+                </div>
+                <p style="color: var(--text-gray); margin-bottom: var(--space-lg);">Track the progress of your item claims and see their current verification status.</p>
+                <div class="items-grid" id="claimsGrid"></div>
+            </div>
+
+            <!-- ---------- ADMIN PANEL PAGE ---------- -->
+            <div id="adminPage" class="page-content hidden">
+                <div class="page-header">
+                    <h1>Admin Panel</h1>
+                </div>
+
+                <div class="stats-row" id="adminStats"></div>
+
+                <div class="chart-container">
+                    <h3><i class="fas fa-chart-bar"></i> Weekly Reports Overview</h3>
+                    <div id="adminChart"></div>
+                </div>
+
+                <div class="admin-table-container">
+                    <div class="admin-table-header">
+                        <h3><i class="fas fa-list"></i> All Reports</h3>
+                        <div class="search-filter-bar" style="margin: 0;">
+                            <div class="search-box" style="min-width: 200px;">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search reports...">
+                            </div>
+                            <select class="filter-select">
+                                <option value="">All Status</option>
+                                <option value="reported">Reported</option>
+                                <option value="under_review">Under Review</option>
+                                <option value="matched">Matched</option>
+                                <option value="claim_initiated">Claim Initiated</option>
+                                <option value="verified">Verified</option>
+                                <option value="returned">Returned</option>
+                                <option value="closed">Closed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Item</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminItemsTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="admin-table-container">
+                    <div class="admin-table-header">
+                        <h3><i class="fas fa-exclamation-circle"></i> Pending Claims for Verification</h3>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Item</th>
+                                <th>Claimant</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pendingClaimsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ---------- SETTINGS PAGE ---------- -->
+            <div id="settingsPage" class="page-content hidden">
+                <div class="page-header">
+                    <h1>Settings</h1>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+                    <div class="verification-card">
+                        <h3><i class="fas fa-user"></i> Profile Settings</h3>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="settingsName" class="form-control" value="Nelson M.">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="settingsEmail" class="form-control" value="nelson.m2834567@st.futminna.edu.ng" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Matric Number</label>
+                            <input type="text" id="settingsMatric" class="form-control" value="2023/1/34567CF" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Department</label>
+                            <input type="text" id="settingsDept" class="form-control" value="Information Technology" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="settingsPhone" class="form-control" value="08012345678">
+                        </div>
+                        <button class="btn btn-primary" onclick="saveSettings()">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+
+                    <div class="verification-card">
+                        <h3><i class="fas fa-lock"></i> Security Settings</h3>
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" class="form-control" placeholder="Enter current password">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" class="form-control" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" class="form-control" placeholder="Confirm new password">
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-key"></i> Update Password
+                        </button>
+
+                        <div style="margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--medium-gray);">
+                            <h4 style="color: var(--danger); margin-bottom: var(--space-md);"><i class="fas fa-exclamation-triangle"></i> Danger Zone</h4>
+                            <button class="btn" style="border: 1px solid var(--danger); color: var(--danger); background: transparent;">
+                                <i class="fas fa-trash"></i> Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==================== NOTIFICATIONS PANEL ==================== -->
+    <div class="notifications-panel" id="notificationsPanel">
+        <div class="notifications-header">
+            <h3><i class="fas fa-bell"></i> Notifications</h3>
+            <button id="closeNotifications">Mark all read</button>
+        </div>
+        <div id="notificationsList"></div>
+    </div>
+
+    <!-- ==================== REPORT ITEM MODAL ==================== -->
+    <div class="modal-overlay" id="reportItemModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus-circle"></i> Report Item</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="reportItemForm">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Report Type <span class="required">*</span></label>
+                            <select id="reportType" class="form-control" required>
+                                <option value="lost">Lost Item</option>
+                                <option value="found">Found Item</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Category <span class="required">*</span></label>
+                            <select id="itemCategory" class="form-control" required>
+                                <option value="">Select Category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="ID Cards">ID Cards</option>
+                                <option value="Bags">Bags</option>
+                                <option value="Wallets">Wallets</option>
+                                <option value="Study Materials">Study Materials</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Accessories">Accessories</option>
+                                <option value="Keys">Keys</option>
+                                <option value="Phones">Phones</option>
+                                <option value="Laptops">Laptops</option>
+                                <option value="Documents">Documents</option>
+                                <option value="Jewelry">Jewelry</option>
+                                <option value="Sports Equipment">Sports Equipment</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Item Title <span class="required">*</span></label>
+                        <input type="text" id="itemTitle" class="form-control" placeholder="e.g., iPhone 14 Pro - Space Black" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Location <span class="required">*</span></label>
+                            <input type="text" id="itemLocation" class="form-control" placeholder="e.g., Lecture Theatre 1, Bosso Campus" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date <span class="required">*</span></label>
+                            <input type="date" id="itemDate" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description <span class="required">*</span></label>
+                        <textarea id="itemDescription" class="form-control" rows="4" placeholder="Describe the item in detail including color, brand, distinguishing marks, etc." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Phone <span class="required">*</span></label>
+                        <input type="tel" id="itemContact" class="form-control" placeholder="08012345678" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Images</label>
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop images here or <span>click to browse</span></p>
+                            <p style="font-size: var(--font-size-xs); color: #adb5bd; margin-top: var(--space-xs);">Max 5 images, 5MB each</p>
+                        </div>
+                        <input type="file" id="itemImages" multiple accept="image/*" hidden>
+                        <div class="image-preview-grid" id="imagePreviewGrid"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Security Questions (for verification when claiming)</label>
+                        <div style="background: var(--light-gray); padding: var(--space-md); border-radius: var(--radius-sm); margin-top: var(--space-xs);">
+                            <div class="form-group" style="margin-bottom: var(--space-sm);">
+                                <input type="text" class="form-control" placeholder="Question 1: e.g., What color is the phone case?">
+                            </div>
+                            <div class="form-group" style="margin-bottom: var(--space-sm);">
+                                <input type="text" class="form-control" placeholder="Answer 1">
+                            </div>
+                            <div class="form-group" style="margin-bottom: var(--space-sm);">
+                                <input type="text" class="form-control" placeholder="Question 2: e.g., What sticker is on the back?">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Answer 2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn modal-cancel" style="background: var(--light-gray); color: var(--text-gray);">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Submit Report
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- ==================== EDIT ITEM MODAL ==================== -->
+    <div class="modal-overlay" id="editItemModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> Edit Report</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="editItemForm">
+                <div class="modal-body">
+                    <input type="hidden" id="editItemId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Report Type <span class="required">*</span></label>
+                            <select id="editReportType" class="form-control" required>
+                                <option value="lost">Lost Item</option>
+                                <option value="found">Found Item</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Category <span class="required">*</span></label>
+                            <select id="editItemCategory" class="form-control" required>
+                                <option value="">Select Category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="ID Cards">ID Cards</option>
+                                <option value="Bags">Bags</option>
+                                <option value="Wallets">Wallets</option>
+                                <option value="Study Materials">Study Materials</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Accessories">Accessories</option>
+                                <option value="Keys">Keys</option>
+                                <option value="Phones">Phones</option>
+                                <option value="Laptops">Laptops</option>
+                                <option value="Documents">Documents</option>
+                                <option value="Jewelry">Jewelry</option>
+                                <option value="Sports Equipment">Sports Equipment</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Item Title <span class="required">*</span></label>
+                        <input type="text" id="editItemTitle" class="form-control" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Location <span class="required">*</span></label>
+                            <input type="text" id="editItemLocation" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date <span class="required">*</span></label>
+                            <input type="date" id="editItemDate" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="editStatusGroup">
+                        <label>Status <span class="required">*</span></label>
+                        <select id="editItemStatus" class="form-control" required>
+                            <option value="reported">Reported</option>
+                            <option value="under_review">Under Review</option>
+                            <option value="matched">Matched</option>
+                            <option value="claim_initiated">Claim Initiated</option>
+                            <option value="verified">Verified</option>
+                            <option value="returned">Returned</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description <span class="required">*</span></label>
+                        <textarea id="editItemDescription" class="form-control" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Phone <span class="required">*</span></label>
+                        <input type="tel" id="editItemContact" class="form-control" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Security Question 1</label>
+                            <input type="text" id="editSecurityQuestion1" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Answer 1</label>
+                            <input type="text" id="editSecurityAnswer1" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Security Question 2</label>
+                            <input type="text" id="editSecurityQuestion2" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Answer 2</label>
+                            <input type="text" id="editSecurityAnswer2" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn modal-cancel" style="background: var(--light-gray); color: var(--text-gray);">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== VIEW ITEM MODAL ==================== -->
+    <div class="modal-overlay" id="viewItemModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h2>Item Details</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="viewItemModalBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn modal-cancel" style="background: var(--light-gray); color: var(--text-gray);">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CLAIM ITEM MODAL ==================== -->
+    <div class="modal-overlay" id="claimItemModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-handshake"></i> Initiate Claim</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="claimItemForm">
+                <div class="modal-body">
+                    <input type="hidden" id="claimItemId">
+                    <p style="color: var(--text-gray); margin-bottom: var(--space-lg);">To claim this item, please provide the following information for verification:</p>
+
+                    <div class="form-group">
+                        <label>Your Full Name <span class="required">*</span></label>
+                        <input type="text" id="claimFullName" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Matric Number <span class="required">*</span></label>
+                        <input type="text" id="claimMatric" class="form-control" placeholder="2023/1/34567CF" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="claimPhone" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Detailed Description <span class="required">*</span></label>
+                        <textarea id="claimDescription" class="form-control" rows="3" placeholder="Provide specific details that prove this item belongs to you (or describe where/how you found it)..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Proof Image</label>
+                        <div class="image-upload-area" id="claimImageUpload" style="padding: var(--space-xl);">
+                            <i class="fas fa-camera"></i>
+                            <p>Upload an image of the item or proof of ownership</p>
+                        </div>
+                        <input type="file" id="claimImages" multiple accept="image/*" hidden>
+                        <div class="image-preview-grid" id="claimImagePreview"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn modal-cancel" style="background: var(--light-gray); color: var(--text-gray);">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Submit Claim
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== VERIFY CLAIM MODAL ==================== -->
+    <div class="modal-overlay" id="verifyClaimModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h2><i class="fas fa-shield-alt"></i> Verify Claim</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="verifyClaimModalBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="background: var(--danger); color: white;" onclick="rejectClaim()">
+                    <i class="fas fa-times"></i> Reject Claim
+                </button>
+                <button type="button" class="btn btn-primary" onclick="approveClaim()">
+                    <i class="fas fa-check"></i> Approve Claim
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

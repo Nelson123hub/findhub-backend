@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Futminna FindHub</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="images/futminna-logo.jpeg">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-container">
+            <!-- ==================== LEFT SIDE ==================== -->
+            <div class="auth-left">
+                <img src="images/futminna-logo.jpeg" alt="FUTMINNA Official Logo">
+                <h2>Welcome Back!</h2>
+                <p>Login to access the Futminna FindHub platform and manage your reports.</p>
+                <div class="demo-info">
+                    <p><i class="fas fa-info-circle"></i> <strong>Demo Accounts:</strong></p>
+                    <p><strong>Student:</strong> <code>nelson.m2834567@st.futminna.edu.ng</code></p>
+                    <p style="margin-left: 58px;"><code>demo123</code></p>
+                    <p><strong>Admin:</strong> <code>admin@futminna.edu.ng</code></p>
+                    <p style="margin-left: 58px;"><code>admin123</code></p>
+                </div>
+            </div>
+
+            <!-- ==================== RIGHT SIDE ==================== -->
+            <div class="auth-right">
+                <div class="auth-header">
+                    <h2>Account Access</h2>
+                    <p>Login or create a new account to get started</p>
+                </div>
+
+                <!-- Auth Tabs -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-target="loginForm">Login</button>
+                    <button class="auth-tab" data-target="registerForm">Register</button>
+                </div>
+
+                <!-- ==================== LOGIN FORM ==================== -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="demo-account-box">
+                        <h4><i class="fas fa-user-graduate"></i> Quick Demo Login</h4>
+                        <p>Student: <code>nelson.m2834567@st.futminna.edu.ng</code> / <code>demo123</code></p>
+                        <p>Admin: <code>admin@futminna.edu.ng</code> / <code>admin123</code></p>
+                        <div class="demo-buttons">
+                            <button type="button" class="btn btn-sm" style="background: rgba(107,31,122,0.1); color: var(--futminna-purple); border: 1px solid var(--futminna-purple);" data-demo-login="student">
+                                <i class="fas fa-user"></i> Student Demo
+                            </button>
+                            <button type="button" class="btn btn-sm" style="background: rgba(107,31,122,0.1); color: var(--futminna-purple); border: 1px solid var(--futminna-purple);" data-demo-login="admin">
+                                <i class="fas fa-user-shield"></i> Admin Demo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address <span class="required">*</span></label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="e.g., firstname.mNNNNNN@st.futminna.edu.ng" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Password <span class="required">*</span></label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg);">
+                        <div class="checkbox-group" style="margin-bottom: 0;">
+                            <input type="checkbox" id="rememberMe">
+                            <label for="rememberMe">Remember me</label>
+                        </div>
+                        <a href="#" style="color: var(--futminna-purple); font-size: var(--font-size-sm); font-weight: 600;">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Login to Account
+                    </button>
+
+                    <div class="auth-divider">or</div>
+
+                    <p class="text-center" style="color: var(--text-gray); font-size: var(--font-size-sm);">
+                        Don't have an account? <a href="#" style="color: var(--futminna-purple); font-weight: 600;" onclick="document.querySelector('[data-target=registerForm]').click(); return false;">Register here</a>
+                    </p>
+                </form>
+
+                <!-- ==================== REGISTER FORM ==================== -->
+                <form id="registerForm" class="auth-form">
+                    <!-- Registration Fields -->
+                    <div id="registerFormFields">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="regFirstName">First Name <span class="required">*</span></label>
+                                <input type="text" id="regFirstName" class="form-control" placeholder="Nelson" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regLastName">Last Name <span class="required">*</span></label>
+                                <input type="text" id="regLastName" class="form-control" placeholder="M." required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="regEmail">Email Address <span class="required">*</span></label>
+                            <input type="email" id="regEmail" class="form-control" placeholder="firstname.mNNNNNN@st.futminna.edu.ng" required>
+                            <p class="form-hint">Format: firstname.mNNNNNN@st.futminna.edu.ng</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="regMatric">Matric Number <span class="required">*</span></label>
+                            <input type="text" id="regMatric" class="form-control" placeholder="2023/1/34567CF" required>
+                            <p class="form-hint">Format: YYYY/N/NNNNNXX (e.g., 2023/1/34567CF)</p>
+                        </div>
+
+                        <!-- DEPARTMENT FIELD (NEW) -->
+                        <div class="form-group">
+                            <label for="regDepartment">Department <span class="required">*</span></label>
+                            <select id="regDepartment" class="form-control" required>
+<option value="">Select your department</option>
+                                <option value="Agricultural and Bioresources Engineering">Agricultural and Bioresources Engineering</option>
+                                <option value="Agricultural Economics and Farm Management">Agricultural Economics and Farm Management</option>
+                                <option value="Agricultural Extension and Rural Development">Agricultural Extension and Rural Development</option>
+                                <option value="Agribusiness">Agribusiness</option>
+                                <option value="Agriculture">Agriculture</option>
+                                <option value="Animal Biology">Animal Biology</option>
+                                <option value="Animal Production">Animal Production</option>
+                                <option value="Architecture">Architecture</option>
+                                <option value="Artificial Intelligence">Artificial Intelligence</option>
+                                <option value="Biochemistry">Biochemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="Biotechnology">Biotechnology</option>
+                                <option value="Building Technology">Building Technology</option>
+                                <option value="Chemical Engineering">Chemical Engineering</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Civil Engineering">Civil Engineering</option>
+                                <option value="Computer Engineering">Computer Engineering</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Crop Production">Crop Production</option>
+                                <option value="Cyber Security Science">Cyber Security Science</option>
+                                <option value="Data Science">Data Science</option>
+                                <option value="Doctor of Pharmacy">Doctor of Pharmacy</option>
+                                <option value="Educational Technology">Educational Technology</option>
+                                <option value="Electrical and Electronics Engineering">Electrical and Electronics Engineering</option>
+                                <option value="Estate Management and Valuation">Estate Management and Valuation</option>
+                                <option value="Food Engineering">Food Engineering</option>
+                                <option value="Food Science and Technology">Food Science and Technology</option>
+                                <option value="Forensic Science">Forensic Science</option>
+                                <option value="Forestry and Wildlife Technology">Forestry and Wildlife Technology</option>
+                                <option value="Furniture Design Architecture">Furniture Design Architecture</option>
+                                <option value="Geography">Geography</option>
+                                <option value="Geology">Geology</option>
+                                <option value="Geophysics">Geophysics</option>
+                                <option value="Horticulture">Horticulture</option>
+                                <option value="Human Anatomy">Human Anatomy</option>
+                                <option value="Human Nutrition and Dietetics">Human Nutrition and Dietetics</option>
+                                <option value="Human Physiology">Human Physiology</option>
+                                <option value="Industrial and Technology Education">Industrial and Technology Education</option>
+                                <option value="Industrial Mathematics">Industrial Mathematics</option>
+                                <option value="Information Science and Media Studies">Information Science and Media Studies</option>
+                                <option value="Information Technology">Information Technology</option>
+                                <option value="Intelligence and Security Studies">Intelligence and Security Studies</option>
+                                <option value="Interior Architecture and Design">Interior Architecture and Design</option>
+                                <option value="Landscape Architecture">Landscape Architecture</option>
+                                <option value="Library and Information Science">Library and Information Science</option>
+                                <option value="Logistics and Supply Chain Management">Logistics and Supply Chain Management</option>
+                                <option value="Logistics and Transport Technology">Logistics and Transport Technology</option>
+                                <option value="Management & Logistics">Management & Logistics</option>
+                                <option value="Materials and Metallurgical Engineering">Materials and Metallurgical Engineering</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                <option value="Mechatronics Engineering">Mechatronics Engineering</option>
+                                <option value="Medical Laboratory Science">Medical Laboratory Science</option>
+                                <option value="Medicine and Surgery">Medicine and Surgery</option>
+                                <option value="Meteorology">Meteorology</option>
+                                <option value="Microbiology">Microbiology</option>
+                                <option value="Mining Engineering">Mining Engineering</option>
+                                <option value="Nuclear Engineering">Nuclear Engineering</option>
+                                <option value="Nuclear Science">Nuclear Science</option>
+                                <option value="Nursing Science">Nursing Science</option>
+                                <option value="Petroleum and Gas Engineering">Petroleum and Gas Engineering</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Plant Biology">Plant Biology</option>
+                                <option value="Procurement Management Technology">Procurement Management Technology</option>
+                                <option value="Project Management Technology">Project Management Technology</option>
+                                <option value="Public Health Science">Public Health Science</option>
+                                <option value="Quantity Surveying">Quantity Surveying</option>
+                                <option value="Software Engineering">Software Engineering</option>
+                                <option value="Soil Science and Land Management">Soil Science and Land Management</option>
+                                <option value="Statistics">Statistics</option>
+                                <option value="Surveying and Geoinformatics">Surveying and Geoinformatics</option>
+                                <option value="Telecommunication Engineering">Telecommunication Engineering</option>
+                                <option value="Urban and Regional Planning">Urban and Regional Planning</option>
+                                <option value="Water Resources, Aquaculture and Fisheries Technology">Water Resources, Aquaculture and Fisheries Technology</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="regPhone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="regPhone" class="form-control" placeholder="08012345678" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="regPassword">Password <span class="required">*</span></label>
+                                <input type="password" id="regPassword" class="form-control" placeholder="Min. 8 characters" required minlength="8">
+                            </div>
+                            <div class="form-group">
+                                <label for="regConfirmPassword">Confirm Password <span class="required">*</span></label>
+                                <input type="password" id="regConfirmPassword" class="form-control" placeholder="Repeat password" required>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            <i class="fas fa-user-plus"></i> Create Account
+                        </button>
+                    </div>
+
+                    <!-- OTP Verification Section -->
+                    <div id="otpSection" class="hidden">
+                        <div class="text-center" style="margin-bottom: var(--space-xl);">
+                            <div style="width: 64px; height: 64px; background: linear-gradient(135deg, var(--futminna-purple) 0%, var(--futminna-purple-light) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-md); color: var(--white); font-size: 1.4rem;">
+                                <i class="fas fa-envelope-open-text"></i>
+                            </div>
+                            <h3 style="color: var(--futminna-purple); margin-bottom: var(--space-xs);">Verify Your Email</h3>
+                            <p style="color: var(--text-gray); font-size: var(--font-size-sm);">Enter the 6-digit code sent to your email</p>
+                        </div>
+
+                        <div class="otp-container">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                        </div>
+
+                        <p class="otp-timer">Didn't receive code? <a id="resendOtp">Resend in <span id="otpTimer">59</span>s</a></p>
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            <i class="fas fa-check-circle"></i> Verify & Create Account
+                        </button>
+
+                        <div class="back-link">
+                            <a href="#" onclick="document.getElementById('otpSection').classList.add('hidden'); document.getElementById('registerFormFields').classList.remove('hidden'); return false;">
+                                <i class="fas fa-arrow-left"></i> Back to Registration
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="auth-divider">or</div>
+
+                    <p class="text-center" style="color: var(--text-gray); font-size: var(--font-size-sm);">
+                        Already have an account? <a href="#" style="color: var(--futminna-purple); font-weight: 600;" onclick="document.querySelector('[data-target=loginForm]').click(); return false;">Login here</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
